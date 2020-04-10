@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Assets/passaro-3.png" type="Texture" id=1]
 [ext_resource path="res://Assets/passaro-1.png" type="Texture" id=2]
@@ -8,6 +8,9 @@
 [ext_resource path="res://Scripts/Generator.gd" type="Script" id=6]
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=7]
 [ext_resource path="res://Assets/font.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://Assets/Sons/somVoa.ogg" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Sons/somScore.ogg" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Sons/somHit.ogg" type="AudioStream" id=11]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Scroll"
@@ -57,6 +60,10 @@ b = Vector2( 0, 0 )
 size = 100
 font_data = ExtResource( 8 )
 
+[sub_resource type="DynamicFont" id=6]
+size = 50
+font_data = ExtResource( 8 )
+
 [node name="Game" type="Node"]
 script = ExtResource( 7 )
 
@@ -69,6 +76,7 @@ texture = ExtResource( 5 )
 centered = false
 
 [node name="Back2" type="Sprite" parent="BackAnim"]
+position = Vector2( 2.54907, 0 )
 texture = ExtResource( 5 )
 centered = false
 
@@ -84,10 +92,14 @@ __meta__ = {
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Bird"]
 scale = Vector2( 0.7, 0.7 )
 frames = SubResource( 2 )
+frame = 2
 playing = true
 
 [node name="Shape" type="CollisionShape2D" parent="Bird"]
 shape = SubResource( 3 )
+
+[node name="Audio" type="AudioStreamPlayer" parent="Bird"]
+stream = ExtResource( 9 )
 
 [node name="Limits" type="StaticBody2D" parent="."]
 
@@ -112,4 +124,26 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": true
 }
+
+[node name="LabelStart" type="Label" parent="."]
+margin_top = 446.101
+margin_right = 720.0
+margin_bottom = 519.101
+custom_fonts/font = SubResource( 6 )
+text = "Toque para iniciar"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimerReplay" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="AudioScore" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+
+[node name="AudioKill" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
 [connection signal="timeout" from="Generator" to="Generator" method="_on_Generator_timeout"]
+[connection signal="timeout" from="TimerReplay" to="." method="_on_TimerReplay_timeout"]

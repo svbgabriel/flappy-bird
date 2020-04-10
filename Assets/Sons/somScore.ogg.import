@@ -11,5 +11,5 @@ dest_files=[ "res://.import/somScore.ogg-5d5030cdf38ee01956f28f7788dfd36c.oggstr
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
