@@ -7,7 +7,7 @@
 [ext_resource path="res://Assets/fundo.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/Generator.gd" type="Script" id=6]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 resource_name = "Scroll"
 length = 2.0
 loop = true
@@ -36,7 +36,7 @@ tracks/1/keys = {
 "values": [ Vector2( 720, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 1 ) ],
 "loop": true,
@@ -44,7 +44,7 @@ animations = [ {
 "speed": 4.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 55.7909, 25.1035 )
 
 [sub_resource type="SegmentShape2D" id=4]
@@ -55,7 +55,7 @@ b = Vector2( -7.69751, 1.33667 )
 
 [node name="BackAnim" type="AnimationPlayer" parent="."]
 autoplay = "Scroll"
-anims/Scroll = SubResource( 3 )
+anims/Scroll = SubResource( 1 )
 
 [node name="Back1" type="Sprite" parent="BackAnim"]
 position = Vector2( -720, 0 )
@@ -76,11 +76,12 @@ __meta__ = {
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Bird"]
 scale = Vector2( 0.7, 0.7 )
-frames = SubResource( 1 )
+frames = SubResource( 2 )
+frame = 2
 playing = true
 
 [node name="Shape" type="CollisionShape2D" parent="Bird"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Limits" type="StaticBody2D" parent="."]
 
@@ -92,7 +93,7 @@ position = Vector2( 0, 1280 )
 shape = SubResource( 4 )
 
 [node name="Generator" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 2.5
 autostart = true
 script = ExtResource( 6 )
 [connection signal="timeout" from="Generator" to="Generator" method="_on_Generator_timeout"]
